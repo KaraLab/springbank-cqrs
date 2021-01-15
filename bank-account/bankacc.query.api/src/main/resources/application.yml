@@ -1,0 +1,26 @@
+server:
+  port:9092
+
+spring:
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+      database: bank
+  datasource:
+    url: jdbc:mysql://localhost:3306/bank
+    username: admin
+    password: admin
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+
+security:
+  oauth2:
+    resource:
+      jwt:
+        key-value: dummy2
