@@ -41,13 +41,13 @@ public class AccountQueryHandlerImpl implements AccountQueryHandler{
     @QueryHandler
     @Override
     public AccountLookupResponse findAccountByHolderId(FindAccountByHolderIdQuery query) {
-        Optional<BankAccount> bankAccount = accountRepository.findByAccountHolderId(query.getAccountHolderId());
+        List<BankAccount> bankAccount = accountRepository.findByAccountHolderId(query.getAccountHolderId());
 
-        if (!bankAccount.isPresent()) {
+        if (bankAccount.isEmpty()) {
             return new AccountLookupResponse("No Bank Account Found for Holder ID - " + query.getAccountHolderId());
         }
 
-        return new AccountLookupResponse("Bank Account Successfully Returned!", bankAccount.get());
+        return new AccountLookupResponse("Bank Account Successfully Returned!", bankAccount);
     }
 
     @QueryHandler

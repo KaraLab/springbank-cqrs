@@ -1,0 +1,30 @@
+server:
+  port:9092
+
+axon:
+  axonserver:
+    servers: axon-server
+
+spring:
+  data:
+    mongodb:
+      host: mongo-container
+      port: 27017
+      database: bank
+  datasource:
+    url: jdbc:mysql://mysql-container:3306/bank
+    username: admin
+    password: admin
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+
+security:
+  oauth2:
+    resource:
+      jwt:
+        key-value: dummy2

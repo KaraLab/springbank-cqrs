@@ -3,11 +3,14 @@ package com.springbank.bankacc.query.api;
 import com.springbank.bankacc.core.configuration.AxonConfig;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.Import;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 
 @SpringBootApplication
+@EntityScan(basePackages = "com.springbank.bankacc.core.models")
 @EnableResourceServer
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 @Import(AxonConfig.class)
