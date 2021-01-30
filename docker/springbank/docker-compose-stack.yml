@@ -1,92 +1,75 @@
 version: '3.7'
 
 services:
-  axon-server:
-    container_name: axon-server
-    image: axoniq/axonserver:latest
-    restart: 'no'
-    ports:
-      - 8024:8024
-      - 8124:8124
-
-  mongo:
-    container_name: mongo-container
-    image: mongo:latest
-    restart: 'no'
-    volumes:
-      - mongodb_data_container:/data/db
-    ports:
-      - 27017:27017
-
-  mysql:
-    container_name: mysql-container
-    image: mysql:latest
-    restart: 'no'
-    environment:
-      MYSQL_ROOT_PASSWORD: dummy
-    volumes:
-      - mysql_data_container:/var/lib/mysql
-    ports:
-      - 3306:3306
-
-  adminer:
-    container_name: adminer
-    image: adminer:latest
-    restart: 'no'
-    environment:
-      - ADMINER_DEFAULT_SERVER=mysql-container
-    ports:
-      - 8080:8080
-
   user-cmd-api:
     container_name: user-cmd-api
     image: user-cmd-api:latest
+    deploy:
+      replicas: 1
     restart: 'no'
     ports:
-      - 8081:8081
+      - target: 8081
+        published: 8081
+        protocol: tcp
+        node: host
     environment:
       - "SPRING_PROFILES_ACTIVE=docker"
 
   user-query-api:
     container_name: user-query-api
     image: user-query-api:latest
+    deploy:
+      replicas: 1
     restart: 'no'
     ports:
-      - 8082:8082
+      - target: 8082
+        published: 8082
+        protocol: tcp
+        node: host
     environment:
       - "SPRING_PROFILES_ACTIVE=docker"
 
   bankacc-cmd-api:
     container_name: bankacc-cmd-api
     image: bankacc-cmd-api:latest
+    deploy:
+      replicas: 1
     restart: 'no'
     ports:
-      - 9091:9091
+      - target: 9091
+        published: 9091
+        protocol: tcp
+        node: host
     environment:
       - "SPRING_PROFILES_ACTIVE=docker"
 
   bankacc-query-api:
     container_name: bankacc-query-api
     image: bankacc-query-api:latest
+    deploy:
+      replicas: 1
     restart: 'no'
     ports:
-      - 9092:9092
+      - target: 9092
+        published: 9092
+        protocol: tcp
+        node: host
     environment:
       - "SPRING_PROFILES_ACTIVE=docker"
 
   api-gateway:
     container_name: api-gateway
     image: api-gateway:latest
+    deploy:
+      replicas: 1
     restart: 'no'
     ports:
-      - 2000:2000
+      - target: 2000
+        published: 2000
+        protocol: tcp
+        node: host
     environment:
       - "SPRING_PROFILES_ACTIVE=docker"
-
-volumes:
-  mongodb_data_container:
-  mysql_data_container:
-
 
 networks:
   default:
